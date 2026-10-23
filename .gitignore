@@ -1,0 +1,11 @@
+# GTZAN audio (download separately, see README)
+Data/genres_original/
+Data/images_original/
+*.wav
+
+# Python / Jupyter
+__pycache__/
+.ipynb_checkpoints/
+.venv/
+*.h5
+*.keras
