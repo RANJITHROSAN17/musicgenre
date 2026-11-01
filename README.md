@@ -5,7 +5,7 @@ Classifying 30-second music clips into 10 genres from hand-crafted audio feature
 classification. Built as an end-to-end walkthrough: audio exploration → feature engineering →
 EDA → model → evaluation.
 
-**Result:** 88.7 % test accuracy on the 3-second-clip feature set (10 classes, 40 % hold-out).
+**Historical notebook result:** 88.7 % test accuracy on a row-wise split of the 3-second-clip feature set. This is **not a reliable estimate for unseen tracks**; see the evaluation limitations below.
 
 ## Dataset
 
@@ -40,6 +40,12 @@ spectrograms, zero crossings, spectral centroid/roll-off overlays, MFCC and chro
 
 *Tempo alone already separates some genres (e.g. disco vs. classical), but most overlap heavily — which is why the full feature set is needed.*
 
+## Evaluation limitations — read before comparing accuracy
+
+The notebook fits `StandardScaler` before its train/test split, and the split is unseeded and row-wise. Multiple 3-second windows from the same source track can therefore appear on both sides, and preprocessing sees held-out statistics. The reported 88.7% is a historical notebook output, not a newly reproduced or leakage-controlled benchmark.
+
+For a credible follow-up, group windows by their original track, split those groups before preprocessing, fit the scaler on training data only, and report the seed, per-genre metrics and track-disjoint evaluation. GTZAN also has known dataset-quality limitations; a high clip score does not establish production performance. No new accuracy claim is made here.
+
 ## Model
 
 ```
@@ -58,6 +64,10 @@ features is also plotted to show the (limited) linear separability of the genres
 
 The gap between train and test accuracy indicates over-fitting; see *Ideas* below.
 
+## Start without downloading audio
+
+Use the bundled feature CSVs to inspect the tabular pipeline first. The opening audio-exploration cells need separate WAV files and may contain paths from the author’s environment; adjust paths before running them. Install the notebook requirements in an isolated environment. TensorFlow support depends on your Python version and platform; this repository does not provide a locked, cross-platform environment. Dataset availability does not imply permission to redistribute the original recordings.
+
 ## Running it
 
 ```bash
@@ -69,7 +79,7 @@ jupyter notebook music_genre_classification.ipynb
 ```
 
 The feature-based EDA and the model train from the bundled CSVs without any audio download
-(roughly 2–3 minutes on CPU for 500 epochs). The first ~60 cells (audio exploration) require the
+(runtime depends on hardware and dependency versions; no timing guarantee). The first ~60 cells (audio exploration) require the
 GTZAN `.wav` files as described above.
 
 ## Project structure
