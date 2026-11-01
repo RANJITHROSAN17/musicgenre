@@ -100,6 +100,10 @@ requirements.txt
 - A CNN on mel-spectrogram images (`images_original/` in GTZAN) instead of tabular features
 - Confusion matrix to see which genres are confused (rock vs. country is the classic one)
 
+## Maintainer
+
+**[Ranjith Rosan](https://github.com/RANJITHROSAN17)** maintains this GTZAN music-genre classification walkthrough. GTZAN and third-party libraries retain their original attribution; see the dataset acknowledgements and evaluation limitations above.
+
 ## Acknowledgements
 
 GTZAN dataset by G. Tzanetakis and P. Cook, *Musical genre classification of audio signals*,
